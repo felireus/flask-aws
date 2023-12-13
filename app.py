@@ -10,7 +10,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 
-engine = create_engine("sqlite:///mydb.db")
+engine = create_engine("postgresql://postgres:12345678@database-2.cjj3zcnfwbez.us-east-2.rds.amazonaws.com:5432/postgres")
 
 with open("pipe_model.pkl",  "rb") as f:
     loaded_model = pickle.load(f)
@@ -30,10 +30,10 @@ def guello():
 @app.route("/predict", methods=["GET"])
 def predict_args():
     
-    color = request.get_json().get("color", None)
-    flav = request.get_json().get("flav", None)
-    alc = request.get_json().get("alc", None)
-    prol = request.get_json().get("prol", None)
+    color = request.args.get("color", None)
+    flav = request.args.get("flav", None)
+    alc = request.args.get("alc", None)
+    prol = request.args.get("prol", None)
     
     data2pred = [color, flav, alc, prol]
     
